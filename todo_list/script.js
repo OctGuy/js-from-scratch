@@ -1,5 +1,5 @@
 // Define task list
-let todo = [];
+let todo = JSON.parse(localStorage.getItem('todo')) || [];
 
 // Define ul element to display task
 let taskList = document.createElement('ol');
@@ -13,6 +13,13 @@ completedTaskList.className = 'completed_task_list';
 let incompletedTaskList = document.createElement('ol');
 incompletedTaskList.className = 'incompleted_task_list';
 
+// load tasks from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+   todo.forEach(task => displayTasks(task));
+   showCompletedTasks();
+   showIncompleteTasks();
+});
+
 document.querySelector('.add_btn').addEventListener('click', () => {
    const taskInput = document.querySelector('.todo_txtBox');
    const task = taskInput.value;
@@ -24,6 +31,7 @@ document.querySelector('.add_btn').addEventListener('click', () => {
          completed: false
       };
       todo.push(taskObj);
+      localStorage.setItem('todo', JSON.stringify(todo));
       displayTasks(taskObj);
       taskInput.value = ''; // Clear textbox
    }
@@ -40,6 +48,9 @@ function displayTasks(taskObj) {
    checkbox.checked = taskObj.completed;
    checkbox.addEventListener('change', () => {
       taskObj.completed = checkbox.checked;
+      localStorage.setItem('todo', JSON.stringify(todo));
+      showCompletedTasks();
+      showIncompleteTasks();
    });
 
    // Create button for task remove
@@ -61,6 +72,7 @@ function removeTask(listItem) {
    
    const index = todo.indexOf(listItem.textContent); // Get index of removed task
    todo.splice(index, 1);  // remove task
+   localStorage.setItem('todo', JSON.stringify(todo));
    //console.log(todo);
 
    showCompletedTasks(); // Update ul
@@ -84,7 +96,7 @@ function showCompletedTasks() {
    completedTaskList.innerHTML = ''; // Clear ul
 
    const completedTasks = todo.filter(task => task.completed);
-   console.log(completedTasks);
+   //console.log(completedTasks);
    completedTasks.forEach(task => {
       const item = document.createElement('li');
       item.textContent = task.name;
@@ -98,7 +110,7 @@ function showIncompleteTasks() {
    incompletedTaskList.innerHTML = ''; // Clear ul
 
    const incompletedTasks = todo.filter(task => !task.completed);
-   console.log(incompletedTasks);
+   //console.log(incompletedTasks);
    incompletedTasks.forEach(task => {
       const item = document.createElement('li');
       item.textContent = task.name;
