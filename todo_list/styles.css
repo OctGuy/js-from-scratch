@@ -1,0 +1,48 @@
+.todo_txtBox {
+   padding: 10px;
+   margin: 40px 40px;
+   box-sizing: border-box;
+   border: 2px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
+   border-color: rgb(106, 164, 215);
+}
+
+.todo_txtBox:focus {
+   border-color: rgb(106, 164, 215);
+   outline: none; /* Add this line to remove the default focus outline */
+}
+
+.add_btn {
+   padding: 13px 20px;
+   background-color: rgb(10, 84, 109);
+   color: white;
+   border: none;
+   transition: background-color 0.3s ease;
+}
+
+.add_btn:hover {
+   background-color: rgb(15, 100, 130);
+   cursor: pointer;
+}
+
+.add_btn:active {
+   background-color:rgb(31, 114, 142)
+}
+
+.task_list {
+   list-style-type: none;
+   font-size: 20px;
+   padding: 0;
+}
+
+.task_list li {
+   padding: 10px;
+   color: rgb(78, 58, 196);
+   font-size: 20px;
+   border-bottom: 1px solid #ccc;
+}
+
+.task_name {
+   margin-right: 20px;
+}
